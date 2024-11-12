@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Answer math questions and beat the clock!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style> Container and header styling */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    color: #333;
+}
+
+.timer {
+    background-color: #ff5722;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Question styling */
+.question {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #555;
+}
+
+/* Input field styling */
+.answer-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+    text-align: center;
+}
+
+.answer-input:focus {
+    border-color: #4caf50;
+}
+
+/* Button styling */
+.submit-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+/* Fade-in animation for container */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+    <script>
+        // Countdown timer function
+        document.addEventListener("DOMContentLoaded", function() {
+            let timeout = {{ timeout }};
+            const timerDisplay = document.getElementById("timer");
+
+            const countdown = setInterval(() => {
+                if (timeout > 0) {
+                    timerDisplay.innerText = `${timeout}s`;
+                    timeout--;
+                } else {
+                    clearInterval(countdown);
+                    document.getElementById('quizForm').submit();  // Auto-submit when time is up
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <h2>Solve this Question:</h2>
+            <div id="timer" class="timer">{{ timeout }}s</div> <!-- Timer display -->
+        </div>
+        <p class="question">What is {{ num1 }} + {{ num2 }}?</p>
+        <form id="quizForm" action="/submit" method="post" class="quiz-form">
+            <input type="number" name="answer" required class="answer-input" placeholder="Your answer">
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

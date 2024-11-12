@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Your Math Quiz score and performance.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<style> Container styling with fade-in animation */
+.result-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.result-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+/* Score display with bounce animation */
+.score-display {
+    font-size: 1.5em;
+    color: #555;
+    margin: 20px 0;
+}
+
+.score {
+    display: inline-block;
+    font-size: 3em;
+    color: #4caf50;
+    font-weight: bold;
+    animation: bounce 1.5s infinite;
+}
+
+/* Play Again button styling */
+.play-again-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #ff5722;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.play-again-button:hover {
+    background-color: #e64a19;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+</style>
+<body>
+    <div class="result-container">
+        <h1>Quiz Completed!</h1>
+        <div class="score-display">
+            <p>Your Score:</p>
+            <span class="score">{{ score }} out of {{ total_questions }}</span>
+        </div>
+        <a href="/" class="play-again-button">Play Again</a>
+    </div>
+</body>
+</html>
